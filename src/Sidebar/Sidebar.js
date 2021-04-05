@@ -13,6 +13,7 @@ import { useStateValue } from "../StateProvider";
 const Sidebar = () => {
     const [rooms, setRooms] = useState([]);
     const [{ user }, dispatch] = useStateValue();
+    const [value, setValue] = useState("");
 
     useEffect(() => {
         // onSnapshot takes the snapshot of the document we have added in our database and in real time too whenever our database gets updated it take a snap
@@ -23,6 +24,7 @@ const Sidebar = () => {
                 id: doc.id,
                 data: doc.data(),
             })))
+            
         ));
         
         return () => { // clean up function that means we will always detach the above real time listner after we are done using it.
@@ -40,6 +42,20 @@ const Sidebar = () => {
         }
     }
 
+    const filterValue = rooms.filter((room) => {
+        return room.data.name.toLowerCase().includes(value.toLowerCase());
+    });
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        
+        // if(!value.length){
+        //     setNewRooms(rooms);
+        // }
+        // else{
+        //     setNewRooms(filterValue);
+        // }
+    }
 
     return (
         <div className="sidebar">
@@ -60,13 +76,13 @@ const Sidebar = () => {
             <div className="sidebar__search">
                 <div className="sidebar__searchContainer">
                     <SearchOutlined />
-                    <input placeholder="Search for a Chat" type="text" />
+                    <input placeholder="Search for a Chat" type="text" value={value} onChange={handleChange} />
                 </div>
             </div>
             <div className="sidebar__chats">
                 <SidebarChat addNewChat />
                 {/* adding the rooms already created */}
-                {rooms.map(room => (
+                {filterValue.map(room => (
                     <SidebarChat key={room.id} id={room.id} name={room.data.name} />
                 ))}
             </div>

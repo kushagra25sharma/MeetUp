@@ -39,7 +39,6 @@ const Chat = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       // console.log(input);
         if (input.length > 0) {
             db.collection("rooms").doc(roomId).collection("messages").add({
                 message: input,
@@ -63,11 +62,10 @@ const Chat = () => {
     }
 
     const handleFile = (uploadedFile) => {
-
         db.collection("rooms").doc(roomId).collection("messages").add({
             message: "",
             name: user.displayName.split(' ')[0],
-            file: URL.createObjectURL(uploadedFile),
+            file: uploadedFile,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
     }
@@ -96,6 +94,7 @@ const Chat = () => {
                 {messages.map((message, index) => (
                     <p key={index} className={`chat__message ${message.name === user?.displayName.split(' ')[0] && "chat__reciever"}`}>
                         <span style={{ color: theme ? "black" : "orange"}} className="chat__name">{message.name}</span>
+                        {/* {message.file && console.log(message.file)} */}
                         {message.message.length ? message.message : <img className="chat__image" src={message.file} alt="couldn't load" />}
                         <span className="chat__timestamp">{moment(new Date(message.timestamp?.toDate()).toUTCString()).format("LT")}</span>
                     </p>

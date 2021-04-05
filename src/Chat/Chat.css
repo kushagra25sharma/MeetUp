@@ -1,3 +1,5 @@
+button:focus {outline:0;}
+
 .chat{
     display: flex;
     flex-direction: column;
@@ -31,6 +33,10 @@
     min-width: 100px;
 }
 
+/* .chat__attachFile{
+    display: none;
+} */
+
 .chat__body{
     flex: 1;
     background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
@@ -62,9 +68,13 @@
     font-size: small;
 }
 
+.chat__image{
+    max-height: 20vh;
+}
+
 .chat__reciever{
     margin-left: auto;
-    background-color: #dcf8c6;
+    background-color: #c9f0ac;
 }
 
 .chat__footer{

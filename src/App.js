@@ -22,7 +22,7 @@ function App() {
               </Route>
               <Route path="/" >
                 <Sidebar />
-                <Chat />
+                <h1 className="app__bodyInfo">Start a new chat or go to an existing chat.</h1>
               </Route>
             </Switch>
           </Router>

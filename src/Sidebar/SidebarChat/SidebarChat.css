@@ -22,3 +22,11 @@ a{
 .sidebarChat__info {
     margin-left: 15px;
 }
+
+.sidebarChat__lastMessage{
+    color:rgba(3, 3, 3, 0.712);
+}
+
+.sidebarChat__photo{
+    color: chocolate;
+}

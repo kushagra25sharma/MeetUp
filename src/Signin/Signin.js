@@ -14,7 +14,7 @@ const Signin = () => {
                 dispatch({
                     type: actionTypes.SET_USER,
                      // we will get the user from firebase when user signs in
-                    user: result.user,
+                    user: result?.user,
                 });
             })
             .catch((error) => alert(error.message));

@@ -7,9 +7,12 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Avatar, IconButton } from "@material-ui/core";
 import { SearchOutlined } from "@material-ui/icons";
 import SidebarChat from "./SidebarChat/SidebarChat";
+import { useStateValue } from "../StateProvider";
+
 
 const Sidebar = () => {
     const [rooms, setRooms] = useState([]);
+    const [{ user }, dispatch] = useStateValue();
 
     useEffect(() => {
         // onSnapshot takes the snapshot of the document we have added in our database and in real time too whenever our database gets updated it take a snap
@@ -27,15 +30,25 @@ const Sidebar = () => {
         }
     }, []);
 
+    const createChat = () => {
+        const roomName = prompt("Enter the room name");
+
+        if(roomName){
+            db.collection('rooms').add({
+                name: roomName,
+            });
+        }
+    }
+
     return (
         <div className="sidebar">
             <div className="sidebar__header">
-                <Avatar src="https://avatars.githubusercontent.com/u/69106317?v=4" />
+                <Avatar src={user?.photoURL || "https://avatars.githubusercontent.com/u/69106317?v=4"} />
                 <div className="sidebar__headerRight">
                     <IconButton>
                         <DonutLargeIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={createChat}>
                         <ChatIcon />
                     </IconButton>
                     <IconButton>
@@ -46,7 +59,7 @@ const Sidebar = () => {
             <div className="sidebar__search">
                 <div className="sidebar__searchContainer">
                     <SearchOutlined />
-                    <input placeholder="Search or start new Chat" type="text" />
+                    <input placeholder="Search for a Chat" type="text" />
                 </div>
             </div>
             <div className="sidebar__chats">

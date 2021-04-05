@@ -4,6 +4,7 @@ import { Avatar } from "@material-ui/core";
 import db from "../../firebase";
 import { Link } from "react-router-dom";
 
+
 const SidebarChat = ({ addNewChat, id, name }) => {
     const [seed, setSeed] = useState(0);
     const [messages, setMessages] = useState([]);
@@ -35,8 +36,7 @@ const SidebarChat = ({ addNewChat, id, name }) => {
                     <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
                     <div key={id} className="sidebarChat__info" >
                         <h1>{name}</h1>
-                        {console.log(messages[0]?.message)}
-                        <p>{messages[0]?.message}</p> 
+                        <p className={!messages[0]?.message ? "sidebarChat__photo" : "sidebarChat__lastMessage"}>{messages[0]?.message || (messages[0]?.file && "Photo")}</p> 
                     </div>
                 </div>
             </Link>

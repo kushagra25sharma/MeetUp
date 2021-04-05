@@ -23,10 +23,11 @@ a{
     margin-left: 15px;
 }
 
-.sidebarChat__lastMessage{
-    color:rgba(3, 3, 3, 0.712);
-}
+/* .sidebarChat__lastMessage{
+    color:rgba(218, 7, 17, 0.753);
+} */
 
 .sidebarChat__photo{
-    color: chocolate;
+    color: rgb(233, 36, 36);
+    font-weight: 700;
 }

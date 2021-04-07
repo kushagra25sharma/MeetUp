@@ -26,9 +26,14 @@ const Chat = () => {
     useEffect(() => {
         if (roomId) {
             
-            db.collection('rooms').doc(roomId).onSnapshot(snapshot => (setRoomName(snapshot.data().name)));
+            const unsubscribe = db.collection('rooms').doc(roomId).onSnapshot(snapshot => (setRoomName(snapshot.data().name)));
 
-            db.collection('rooms').doc(roomId).collection("messages").orderBy("timestamp", "asc").onSnapshot((snapshot) => setMessages(snapshot.docs.map((doc) => doc.data())));
+            const unsub = db.collection('rooms').doc(roomId).collection("messages").orderBy("timestamp", "asc").onSnapshot((snapshot) => setMessages(snapshot.docs.map((doc) => doc.data())));
+
+            return () => {
+                unsubscribe();
+                unsub();
+            }
 
         }
     }, [roomId]) // whenever roomId changes we load the messages of that room
@@ -79,7 +84,7 @@ const Chat = () => {
 
                 <div className="chat__headerInfo">
                     <h5>{roomName}</h5>
-                    <p>{messages.length ? `Last message at ${moment(new Date(messages[messages.length - 1]?.timestamp?.toDate())).format("LT")}` : "New room created"} </p>
+                    <p>{messages.length ? `Last message at ${moment(new Date(messages[messages?.length - 1]?.timestamp?.toDate())).format("LT")}` : "New room created"} </p>
                 </div>
 
                 <div className="chat__headerRight">
@@ -96,7 +101,7 @@ const Chat = () => {
                         <span style={{ color: theme ? "black" : "orange"}} className="chat__name">{message.name}</span>
                         {/* {message.file && console.log(message.file)} */}
                         {message.message.length ? message.message : <img className="chat__image" src={message.file} alt="couldn't load" />}
-                        <span className="chat__timestamp">{moment(new Date(message.timestamp?.toDate()).toUTCString()).format("LT")}</span>
+                        <span className="chat__timestamp">{moment(new Date(message?.timestamp?.toDate()).toUTCString()).format("LT")}</span>
                     </p>
                 ))}
 

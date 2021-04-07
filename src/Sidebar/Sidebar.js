@@ -48,13 +48,6 @@ const Sidebar = () => {
 
     const handleChange = (e) => {
         setValue(e.target.value);
-        
-        // if(!value.length){
-        //     setNewRooms(rooms);
-        // }
-        // else{
-        //     setNewRooms(filterValue);
-        // }
     }
 
     return (

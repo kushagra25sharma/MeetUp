@@ -106,3 +106,7 @@ button:focus {outline:0;}
     padding: 10px;
     color: gray;
 }
+
+.chat__footer > .emoji-picker-react{
+    margin-bottom: 35vh;
+}

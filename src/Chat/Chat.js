@@ -9,6 +9,7 @@ import { useStateValue } from "../StateProvider";
 import firebase from "firebase";
 import moment from "moment";
 import FileUploader from "./FileUploader";
+import Picker from "emoji-picker-react";
 
 
 const Chat = () => {
@@ -17,9 +18,9 @@ const Chat = () => {
     const { roomId } = useParams();// this will give us the roomId that we have passsed in the link /rooms/:roomId
     const [roomName, setRoomName] = useState("");
     const [messages, setMessages] = useState([]);
-    // const [{ user }, dispatch] = useStateValue();
     const { user } = useStateValue()[0];
-    const [theme, setTheme] = useState(false);
+    const [theme, setTheme] = useState(true);
+    const [show, setShow] = useState(false);
     const theme1 = "https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png";
     const theme2 = "https://i.redd.it/ts7vuoswhwf41.jpg";
     // console.log(roomId);
@@ -61,6 +62,7 @@ const Chat = () => {
                 });
         }
         setInput("");
+        setShow(false);
     };
 
     const handleTheme = () => {
@@ -76,6 +78,14 @@ const Chat = () => {
         });
     }
 
+    const handleShow = () => {
+        setShow(prev => !prev);
+    }
+
+    const handleEmojiClick = (e, obj) => {
+        const str = input + obj.emoji;
+        setInput(str);
+    }
 
     return (
         <div className="chat">
@@ -110,7 +120,8 @@ const Chat = () => {
 
 
             <div className="chat__footer">
-                <IconButton><InsertEmoticon /></IconButton>
+                {show && <Picker onEmojiClick={handleEmojiClick} />}
+                <IconButton onClick={handleShow}><InsertEmoticon /></IconButton>
                 <form>
                     <input placeholder="Type a message" type="input" value={input} onChange={(e) => setInput(e.target.value)} />
                     <button type="submit" onClick={handleSubmit} >Send the message</button>

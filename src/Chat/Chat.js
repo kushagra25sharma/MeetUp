@@ -17,7 +17,8 @@ const Chat = () => {
     const { roomId } = useParams();// this will give us the roomId that we have passsed in the link /rooms/:roomId
     const [roomName, setRoomName] = useState("");
     const [messages, setMessages] = useState([]);
-    const [{ user }, dispatch] = useStateValue();
+    // const [{ user }, dispatch] = useStateValue();
+    const { user } = useStateValue()[0];
     const [theme, setTheme] = useState(false);
     const theme1 = "https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png";
     const theme2 = "https://i.redd.it/ts7vuoswhwf41.jpg";
@@ -100,7 +101,7 @@ const Chat = () => {
                     <p key={index} className={`chat__message ${message.name === user?.displayName.split(' ')[0] && "chat__reciever"}`}>
                         <span style={{ color: theme ? "black" : "orange"}} className="chat__name">{message.name}</span>
                         {/* {message.file && console.log(message.file)} */}
-                        {message.message.length ? message.message : <img className="chat__image" src={message.file} alt="couldn't load" />}
+                        {message.message.length ? message.message : <img className="chat__image" src={message?.file} alt="couldn't load" />}
                         <span className="chat__timestamp">{moment(new Date(message?.timestamp?.toDate()).toUTCString()).format("LT")}</span>
                     </p>
                 ))}

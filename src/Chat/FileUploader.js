@@ -23,11 +23,15 @@ const FileUploader = ({ handleFile }) => {
     };
 
     const convertBase64 = (file) => {
+// Promise is a wrapper around a value that may or may not be known when the
+// object is instantiated and provides a method for handling the value after
+// it is known (resolve) or is unavailable for a failure reason (reject)
+// used when the code can take some time to do something 
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
+            fileReader.readAsDataURL(file);// reads data from file
 
-            fileReader.onload = () => {
+            fileReader.onload = () => { // onload is an event handler which is firred when the data is read
                 resolve(fileReader.result);
             }
 

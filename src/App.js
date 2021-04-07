@@ -6,7 +6,7 @@ import Signin from "./Signin/Signin";
 import { useStateValue } from "./StateProvider";
 
 function App() {
-  const [{ user }, dispatch] = useStateValue();
+  const { user } = useStateValue()[0];
 
   return (
     <div className="app">

@@ -6,7 +6,7 @@ import { actionTypes } from "../reducer";
 
 
 const Signin = () => {
-    const [{}, dispatch] = useStateValue(); // obtaining the initial state and dispatch method from reducer
+    const dispatch = useStateValue()[1]; // obtaining the initial state and dispatch method from reducer
 
     const signIn = () => {
         auth.signInWithPopup(provider)
